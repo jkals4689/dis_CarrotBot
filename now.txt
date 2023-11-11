@@ -1,0 +1,7 @@
+지금 해야 할 것:
+1.디스코드 봇이 켜지면 봇이 들어가져 있는 모든 디스코드 서버의 id와 이름을 폴더 생성. (guild.id)_(guild.name)
+-> 이미 있으면 pass
+2.1번의 과정이 지나면 그 내부에 모든 이벤트를 저장할 DB.csv를 생성한다. ex) join_left.csv, voice_join_left.csv 등등등...
+-> 파일이 전부 존재 하면 pass | 하나라도 없으면 파일 생성
+3. 이후 join_left.csv부터 테스트
+4. 끝
