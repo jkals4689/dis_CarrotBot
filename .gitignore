@@ -1,0 +1,5 @@
+/test
+/test.csv
+/넣을 기능.txt
+database/*
+!database/exDB
