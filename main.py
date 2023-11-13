@@ -3,15 +3,14 @@ import os
 
 import nextcord
 from nextcord.ext import commands
-from module.cog_Event.member_join import MemberJoin, MemberLeave
 
 client = commands.Bot(command_prefix=".!", intents=nextcord.Intents.all())
 game = nextcord.Game("악악. 살려줘 악악.")
 
 
-def init():
-    client.add_cog(MemberLeave(client))
-    client.add_cog(MemberJoin(client))
+# def init():
+#     client.add_cog(MemberLeave(client))
+#     client.add_cog(MemberJoin(client))
 
 
 def main():
@@ -30,6 +29,8 @@ def main():
 
 
 if __name__ == "__main__":
-    init()
+    # init()
     main()
     client.run(os.environ['CarrotBotToken'])
+
+    
