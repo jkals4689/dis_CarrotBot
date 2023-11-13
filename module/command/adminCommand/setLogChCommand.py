@@ -1,5 +1,6 @@
 import nextcord
 from nextcord.ext import commands
+from module.DataWriter import CsvWriter
 
 class SetLogChannel(commands.Cog):
     def __init__(self, guild, bot:commands.Bot) -> None:

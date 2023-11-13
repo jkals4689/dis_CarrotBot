@@ -33,6 +33,15 @@ class MemberLeave(commands.Cog):
         print_event("Leave", member)
 
 
+class MemberUpdate(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_member_update(self, before, after):
+        pass
+
+
 def setup(bot: commands.Bot):
     bot.add_cog(MemberJoin(bot))
     bot.add_cog(MemberLeave(bot))

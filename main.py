@@ -3,14 +3,14 @@ import time
 import nextcord
 
 from nextcord.ext import commands
-from module.event import member_join
+from module.event import OnMemberEvent
 
 client = commands.Bot(command_prefix=".!", intents=nextcord.Intents.all())
 game = nextcord.Game("악악. 살려줘 악악.")
 
 
 def init():
-    member_join.setup(client)
+    OnMemberEvent.setup(client)
 
 
 def main():

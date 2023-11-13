@@ -9,11 +9,13 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class FileNameList:
     jl: str = 'join_left'
+    update: str = 'member_update'
 
 
 @dataclass(frozen=True)
 class DataTypeList:
     jl: List[str] = ('Date', 'Time', 'Member-ID', 'Member-Name', 'Stat')
+    update: List[str] = (('Date', 'Time','ID','Name'),(('before', 'after'),('nickname','role')))
 
 
 @dataclass(frozen=True)
@@ -41,11 +43,12 @@ class DataInformationError(Exception):
 
 
 class GeneratorDataFrame:
-    def __init__(self, guild, event: str):
+    def __init__(self, guild, event: str = ""):
         self.__path = "database/{}_{}/".format(guild.id, guild.name)
-        self.__filename = GetList(event).get_filename()
-        self.__type = GetList(event).get_datatype()
-        self._dataframe = self.read_dataframe()
+        if event != "":
+            self.__filename = GetList(event).get_filename()
+            self.__type = GetList(event).get_datatype()
+            self._dataframe = self.read_dataframe()
 
     def get_path(self):
         return self.__path+self.__filename+".csv"
@@ -112,3 +115,8 @@ class CsvWriter(GeneratorDataFrame):
 
     def get_data(self):
         return self._dataframe
+
+
+class SettingsWriter(GeneratorDataFrame):
+    def __init__(self, guild, event: str):
+        super().__init__(guild, event)
