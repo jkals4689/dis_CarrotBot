@@ -1,5 +1,7 @@
 /test
 /test.csv
 /넣을 기능.txt
+module/__pycache__
+module/cog_Event/__pycache__
 database/*
 !database/exDB
