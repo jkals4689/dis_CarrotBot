@@ -15,9 +15,9 @@ class MemberJoin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        data = CsvWriter(f"{member.guild.id}_{member.guild.name}", 'jl')
+        data = CsvWriter(member.guild, 'jl')
         data.add_data(member.id, member.name, 'Join')
-        data.save_file()
+        data.save_data()
         print_event("Join", member)
 
 
@@ -27,7 +27,12 @@ class MemberLeave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        data = CsvWriter(f"{member.guild.id}_{member.guild.name}", 'jl')
+        data = CsvWriter(member.guild, 'jl')
         data.add_data(member.id, member.name, 'Leave')
-        data.save_file()
+        data.save_data()
         print_event("Leave", member)
+
+
+def setup(bot: commands.Bot):
+    bot.add_cog(MemberJoin(bot))
+    bot.add_cog(MemberLeave(bot))
