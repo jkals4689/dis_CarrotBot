@@ -1,4 +1,4 @@
-from module.DataWriter import CsvWriter
+from datamodule.DataWriter import CsvWriter
 import nextcord
 from nextcord.ext import commands
 

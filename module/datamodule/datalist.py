@@ -10,7 +10,7 @@ from typing import List
 
 
 @dataclass(frozen=True)
-class DataTypeList:
+class InitDataList:
     jl: List[str] = ('Date', 'Time', 'Member-ID', 'Member-Name', 'Stat')
     update: List[str] = (('Date', 'Time','ID','Name'),(('before', 'after'),('nickname','role')))
     settings: List[str] = (('LogCh','Role','TxtCh','Warn-Role','Warn-Ch'),('ID','Name'))
@@ -32,4 +32,4 @@ class GetList:
     #     return getattr(FileNameList(), self.__event, None)
 
     def get_datatype(self):
-        return getattr(DataTypeList(), self.__event, None)
+        return getattr(InitDataList(), self.__event, None)

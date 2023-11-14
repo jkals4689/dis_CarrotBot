@@ -15,4 +15,4 @@ def check_datafile(guild: nextcord.Guild):
 
     for filename in filenames:
         if not (Path.cwd() / __path / filename+".csv"):
-            pass
+            
