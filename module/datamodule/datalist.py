@@ -12,8 +12,10 @@ from typing import List
 @dataclass(frozen=True)
 class InitDataList:
     jl: List[str] = ('Date', 'Time', 'Member-ID', 'Member-Name', 'Stat')
-    update: List[str] = (('Date', 'Time','ID','Name'),(('before', 'after'),('nickname','role')))
-    settings: List[str] = (('LogCh','Role','TxtCh','Warn-Role','Warn-Ch'),('ID','Name'))
+    update: List[str] = (('Date', 'Time', 'ID', 'Name'),
+                         (('before', 'after'), ('nickname', 'role')))
+    settings: List[str] = ('ID', 'Name', 'LogCh', 'Role',
+                           'TxtCh', 'Warn-Role', 'Warn-Ch')
 
 
 @dataclass(frozen=True)
@@ -22,7 +24,7 @@ class DataIndexList:
 
 
 class GetList:
-    def __init__(self, event:str = None) -> None:
+    def __init__(self, event: str = None) -> None:
         self.__event = event
         if event == None:
             raise ValueError("The parameter cannot contain 'None'.")
