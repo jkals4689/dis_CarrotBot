@@ -1,12 +1,8 @@
 import sys
 from datetime import datetime
 from .gendataframe import GeneratorDataFrame
+from ErrorModule import DataInformationError
 
-
-class DataInformationError(Exception):
-    def __init__(self, *args: object) -> None:
-        super().__init__(*args)
-        sys.exit()
 
 
 class CsvWriter(GeneratorDataFrame):
@@ -39,5 +35,8 @@ class CsvWriter(GeneratorDataFrame):
 
 
 class SettingsWriter(GeneratorDataFrame):
-    def __init__(self, guild, event: str):
-        super().__init__(guild, event)
+    def __init__(self, guild):
+        super().__init__(guild, 'settings')
+
+    def add_data(self, id: int, name: str):
+        self._dataframe

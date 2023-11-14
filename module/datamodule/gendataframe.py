@@ -1,7 +1,8 @@
 import os
 import sys
 import pandas as pd
-from datetime import datetime
+from pathlib import Path
+from ErrorModule import write_error_log
 from .datalist import GetList
 
 
@@ -9,7 +10,7 @@ class GeneratorDataFrame:
     def __init__(self, guild, event: str = ""):
         self.__path = "database/{}_{}/".format(guild.id, guild.name)
         if event != "":
-            self.__filename = GetList(event).get_filename()
+            self.__filename = event
             self.__type = GetList(event).get_datatype()
             self._dataframe = self.read_dataframe()
 
@@ -17,35 +18,26 @@ class GeneratorDataFrame:
         return self.__path+self.__filename+".csv"
 
     def __error_savedataframe(self):
-        path = self.get_path()
+        if not Path(self.__path).is_dir():
+            os.mkdir(self.__path)
         try:
-            self._dataframe.to_csv(path, encoding='utf-8', index=False)
+            self._dataframe.to_csv(
+                self.get_path(), encoding='utf-8', index=False)
             print("success save data")
         except AttributeError:
             print("Data is not defined.")
             self._dataframe = pd.DataFrame(columns=self.__type)
             self.__error_savedataframe()
-        except OSError:
-            print(f"Dir {self.__path} does not exist")
-            os.mkdir(self.__path)
-            self.__error_savedataframe()
         except Exception as e:
-            print("An unexpected error occurred:", e)
-            time = datetime.now()
-            file = open('log', encoding='utf-8')
-            file.write(time.strftime("%Y.%m.%d %H:%M:%S"), "-> Error:", e)
-            sys.exit()
+            write_error_log(e)
 
     def read_dataframe(self):
-        path = self.get_path()
         try:
-            dataframe = pd.read_csv(path, encoding='utf-8')
+            dataframe = pd.read_csv(self.get_path(), encoding='utf-8')
         except FileNotFoundError:
             print("failed load data")
             self.__error_savedataframe()
         except Exception as e:
-            print("An unknown error has occurred!")
-            print(e)
-            sys.exit()
+            write_error_log(e)
         else:
             return dataframe
