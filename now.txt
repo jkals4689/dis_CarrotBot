@@ -5,3 +5,6 @@
 -> 파일이 전부 존재 하면 pass | 하나라도 없으면 파일 생성
 3. 이후 join_left.csv부터 테스트
 4. 끝
+
+
+date time : event : member.name[ mamber.id ]
