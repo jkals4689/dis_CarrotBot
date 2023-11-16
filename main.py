@@ -12,9 +12,7 @@ game = nextcord.Game("악악. 살려줘 악악.")
 
 def init():
     # OnMemberEvent.setup(client)
-    for guild in client.guilds:
-        check_datafile(guild)
-
+    pass
 
 def main():
     @client.event
@@ -34,5 +32,4 @@ def main():
 if __name__ == "__main__":
     # init()
     main()
-    print(len(client.guilds))
     client.run(os.environ['CarrotBotToken'])
