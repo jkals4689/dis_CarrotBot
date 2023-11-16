@@ -11,9 +11,7 @@ from typing import List
 
 @dataclass(frozen=True)
 class InitDataList:
-    jl: List[str] = ('Date', 'Time', 'Member-ID', 'Member-Name', 'Stat')
-    update: List[str] = (('Date', 'Time', 'ID', 'Name'),
-                         (('before', 'after'), ('nickname', 'role')))
+    userdata: List[str] = ('')
     settings: List[str] = ('ID', 'Name', 'LogCh', 'Role',
                            'TxtCh', 'Warn-Role', 'Warn-Ch')
 

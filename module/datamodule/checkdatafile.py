@@ -6,13 +6,12 @@ from pathlib import Path
 from .datalist import GetList
 from ErrorModule import write_error_log
 
-filenames = ('join_left', 'settings')
+filenames = ('settings', 'userdata')
 
 
 def check_datafile(guild: nextcord.Guild):
-    __path = "./dadabase/{}_{}/".format(guild.id, guild.name)
-    if not Path(__path).is_dir:
-        os.mkdir(__path)
+    __path = "{}/dadabase/{}_{}/".format(Path.cwd(), guild.id, guild.name)
+    Path(__path).mkdir(parents=True, exist_ok=True)
 
     for filename in filenames:
         if not (Path.cwd() / __path / filename+".csv"):
@@ -28,3 +27,6 @@ def check_datafile(guild: nextcord.Guild):
             print(f"{guild.id}_{guild.name}."+filename+".csv is exists")
 
 
+def dataframe_type(filename: str):
+    if filename == filenames[0]:
+        return pd.DataFrame(columns=GetList(filename).get_datatype())

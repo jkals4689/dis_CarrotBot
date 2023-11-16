@@ -7,4 +7,11 @@
 4. 끝
 
 
-date time : event : member.name[ mamber.id ]
+[ date time ] [ join/left ] : [ name -> mamber.name ] : [ id -> member.id ]
+[ date time ] [ update ] : [ before -> (role,nickname)] : [ after -> (role,nickname)]
+[ date time ] [ command ] : [ member.name - member.id ] : [ command ] -> channel    
+[ date time ] [ message ] : [ message ] -> [ channel ]
+                            ...
+
+userlist.csv
+id name role nickname warn 
