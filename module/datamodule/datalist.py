@@ -11,14 +11,9 @@ from typing import List
 
 @dataclass(frozen=True)
 class InitDataList:
-    userdata: List[str] = ('')
-    settings: List[str] = ('ID', 'Name', 'LogCh', 'Role',
-                           'TxtCh', 'Warn-Role', 'Warn-Ch')
-
-
-@dataclass(frozen=True)
-class DataIndexList:
-    pass
+    userdata: List[str] = ('ID', 'Name', 'Role', 'NickName', 'Warn')
+    settings: List[str] = (
+        ('ID', 'Name'), ('LogCh', 'Role', 'TxtCh', 'Warn-Role', 'Warn-Ch'))
 
 
 class GetList:
