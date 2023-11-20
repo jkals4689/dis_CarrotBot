@@ -4,7 +4,8 @@ import nextcord
 
 from nextcord.ext import commands
 # from module.event import OnMemberEvent
-from module.datamodule.checkdatafile import check_datafile
+import module.event.guildevent as guildevent
+# from module.datamodule.checkdatafile import check_datafile
 
 client = commands.Bot(command_prefix=".!", intents=nextcord.Intents.all())
 game = nextcord.Game("악악. 살려줘 악악.")
@@ -12,7 +13,8 @@ game = nextcord.Game("악악. 살려줘 악악.")
 
 def init():
     # OnMemberEvent.setup(client)
-    pass
+    guildevent.setup(client)
+
 
 def main():
     @client.event
@@ -30,6 +32,6 @@ def main():
 
 
 if __name__ == "__main__":
-    # init()
+    init()
     main()
     client.run(os.environ['CarrotBotToken'])

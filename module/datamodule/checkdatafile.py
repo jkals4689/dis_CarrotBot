@@ -50,6 +50,7 @@ async def check_jsonfile():
 
 class CheckData:
     def __init__(self, guild):
+        self._guild = guild
         self._path = Path(Path.cwd()/"database" /
                           "{}_{}".format(guild.id, guild.name))
         self.check_guildfolder()
