@@ -12,11 +12,16 @@ game = nextcord.Game("악악. 살려줘 악악.")
 
 
 def init():
+    """Code boxes that are executed at the start of a program.:return:"""
     # OnMemberEvent.setup(client)
     guildevent.setup(client)
 
 
 def main():
+    """
+    Program Start Function
+    :return:
+    """
     @client.event
     async def on_ready():
         await client.change_presence(activity=game)
