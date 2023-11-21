@@ -3,11 +3,14 @@ from nextcord.ext import commands
 from module.datamodule.checkdatafile import CheckData
 
 
-@commands.Bot.listen()
-async def on_guild_join(guild):
-    CheckData(guild)
-    print("Join to [{}]Server!\nGuild ID: {}".format(guild.name, guild.id))
+class OnGuildJoin(commands.Cog):
+    def __init__(self, bot) -> None:
+        self.bot = bot
 
-
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild):
+        CheckData(guild)
+        print("Join to [{}]Server!\nGuild ID: {}".format(guild.name, guild.id))
+        
 def setup(bot: commands.Bot):
-    bot.add_listener(on_guild_join())
+    bot.add_cog(OnGuildJoin(bot))
