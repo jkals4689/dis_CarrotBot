@@ -8,7 +8,7 @@ import pandas as pd
 
 __csv_filenames = ('settings.csv',)
 __json_filenames = ('userdata.json',)
-__userdata = ['ID', 'Name', 'Role', 'NickName', 'Warn']
+# __userdata = ['ID', 'Name', 'Role', 'NickName', 'Warn']
 __settings = [['ID', 'Name'], ['LogCh', 'TxtCh', 'WanrCh', 'Role', 'WarnRole']]
 
 
@@ -51,7 +51,7 @@ def check_files(path: Path):
         if not Path(path / csvfile).is_file():
             try:
                 dataframe = get_dataframe_type(csvfile)
-                dataframe.to_csv(str(path / csvfile), encoding='utf-8', index=False)
+                dataframe.to_csv(str(path / csvfile), encoding='utf-8', index=True)
             except Exception as e:
                 print(e)
             else:
