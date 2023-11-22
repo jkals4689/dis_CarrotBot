@@ -2,7 +2,6 @@ import os
 import time
 import nextcord
 import module.event.guildevent as guild_event
-import asyncio
 
 from nextcord.ext import commands
 from module.datamodule.checkdatafile import CheckData

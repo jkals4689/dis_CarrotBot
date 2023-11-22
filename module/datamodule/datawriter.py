@@ -1,57 +1,72 @@
-import sys
-from datetime import datetime
-from .gendataframe import GeneratorDataFrame
-from ErrorModule import DataInformationError
+import json
+import nextcord
+
+from abc import ABC, abstractmethod
+# from datetime import datetime
+# from .gendataframe import GeneratorDataFrame
+# from ErrorModule import DataInformationError
+from pathlib import Path
+
+json_filenames = ('userdata.json',)
 
 
 def set_dataframe():
+    """
+    Returns the Pandas dataframe variable.
+    :return:
+    """
     pass
 
 
-class JsonWrite:
-    def __init__(self):
+def set_user_dict(member: nextcord.Member):
+    """
+    Returns the dictionary variable.
+    :param member:
+    :return:
+    """
+    dic = \
+        {
+            "id": member.id,
+            "name": member.name,
+            "role": member.roles,
+            "nickname": member.nick,
+            "warn": 0
+        }
+    return dic
+
+
+class JsonWrite(ABC):
+    @abstractmethod
+    def check_jsonfile(self):
         pass
 
-    def add_userdata(self):
+
+class CsvWrite(ABC):
+    @abstractmethod
+    def check_csvfile(self):
         pass
 
 
-class CsvWrite:
-    def __init__(self):
-        pass
+class DataWriter:
+    """
+    DataWriter
+    def add_userdata(member) -> added userdata to userdata.json
+    """
 
-# class CsvWriter(GeneratorDataFrame):
-#     def __init__(self, server, event: str):
-#         super().__init__(server, event)
-#
-#     def add_data(self, id: int = 0, name: str = "Error", stat: str = "Error"):
-#         time = datetime.now()
-#         if id == 0 or name == "Error" or stat == "Error":
-#             raise DataInformationError(
-#                 "There is a problem with the received Data value.")
-#         self._dataframe.loc[len(self._dataframe)+1] =\
-#             [time.strftime("%Y.%m.%d"), time.strftime(
-#                 "%H:%M:%S"), id, name, stat]
-#
-#     def save_data(self):
-#         path = self.get_path()
-#         try:
-#             self._dataframe.to_csv(path, encoding='utf-8', index=False)
-#             print("sucess save data")
-#         except Exception as e:
-#             print("An unexpected error occurred:", e)
-#             time = datetime.now()
-#             file = open('log', encoding='utf-8')
-#             file.write(time.strftime("%Y.%m.%d %H:%M:%S"), "-> Error:", e)
-#             sys.exit()
-#
-#     def get_data(self):
-#         return self._dataframe
-#
-#
-# class SettingsWriter(GeneratorDataFrame):
-#     def __init__(self, guild):
-#         super().__init__(guild, 'settings')
-#
-#     def add_data(self, id: int, name: str):
-#         self._dataframe
+    def __init__(self, guild: nextcord.Guild):
+        self.path = Path(Path.cwd() / 'database' / f'{guild.id}_{guild.name}')
+
+    def add_userdata(self, member: nextcord.Member):
+        """
+        A function that stores member information in userdata.json
+        :param member:
+        """
+        with open(self.path / json_filenames[0], 'r', encoding='utf-8') as read_file:
+            data: list = json.load(read_file)
+
+        data.append(set_user_dict(member))
+        with open(str(self.path / json_filenames[0]), 'w', encoding='utf-8') as write_file:
+            json.dump(data, write_file, indent=4)
+
+    def __del__(self):
+        pass
