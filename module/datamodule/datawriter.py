@@ -24,28 +24,16 @@ def set_user_dict(member: nextcord.Member):
     :param member:
     :return:
     """
+    role = [{"id": role.id, "name": role.name} for role in member.roles]
     dic = \
         {
             "id": member.id,
             "name": member.name,
-            "role": {"id": member.roles.id, "name": member.roles.name},
+            "role": role,
             "nickname": member.nick,
             "warn": 0
         }
     return dic
-
-
-class JsonWrite(ABC):
-    @abstractmethod
-    def check_jsonfile(self):
-        pass
-
-
-class CsvWrite(ABC):
-    @abstractmethod
-    def check_csvfile(self):
-        pass
-
 
 class DataWriter:
     """
@@ -55,15 +43,14 @@ class DataWriter:
 
     def __init__(self, guild: nextcord.Guild):
         self.path = Path(Path.cwd() / 'database' / f'{guild.id}_{guild.name}')
-        with open(str(self.path / json_filenames[0]), 'r', encoding='utf-8') as read_file:
+        with open(str(self.path / json_filenames[0]), 'r', encoding='ansi') as read_file:
             self.data: list = json.load(read_file)
 
     def add_userdata(self, member: nextcord.Member):
         self.data.append(set_user_dict(member))
 
-    def save_userdata(self):
-        with open(str(self.path / json_filenames[0]), 'w', encoding='utf-8') as write_file:
-            json.dump(self.data, write_file, indent=4)
+    def remove_userdata(self, member: nextcord.Member):
+        pass
 
     def __del__(self):
         with open(str(self.path / json_filenames[0]), 'w', encoding='utf-8') as write_file:

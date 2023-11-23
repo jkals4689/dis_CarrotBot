@@ -30,6 +30,7 @@ def main():
         for guild in guilds:
             CheckData(guild)
 
+
         time.sleep(3)
         print("Online!")
 
