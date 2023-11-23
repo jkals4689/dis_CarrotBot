@@ -17,7 +17,7 @@ class GeneratorDataFrame:
     def get_path(self):
         return self.__path+self.__filename+".csv"
 
-    def __error_savedataframe(self):
+    def __error_save_dataframe(self):
         if not Path(self.__path).is_dir():
             os.mkdir(self.__path)
         try:

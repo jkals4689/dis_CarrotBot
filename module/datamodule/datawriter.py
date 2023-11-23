@@ -28,7 +28,7 @@ def set_user_dict(member: nextcord.Member):
         {
             "id": member.id,
             "name": member.name,
-            "role": member.roles,
+            "role": {"id": member.roles.id, "name": member.roles.name},
             "nickname": member.nick,
             "warn": 0
         }
@@ -55,18 +55,16 @@ class DataWriter:
 
     def __init__(self, guild: nextcord.Guild):
         self.path = Path(Path.cwd() / 'database' / f'{guild.id}_{guild.name}')
+        with open(str(self.path / json_filenames[0]), 'r', encoding='utf-8') as read_file:
+            self.data: list = json.load(read_file)
 
     def add_userdata(self, member: nextcord.Member):
-        """
-        A function that stores member information in userdata.json
-        :param member:
-        """
-        with open(self.path / json_filenames[0], 'r', encoding='utf-8') as read_file:
-            data: list = json.load(read_file)
+        self.data.append(set_user_dict(member))
 
-        data.append(set_user_dict(member))
+    def save_userdata(self):
         with open(str(self.path / json_filenames[0]), 'w', encoding='utf-8') as write_file:
-            json.dump(data, write_file, indent=4)
+            json.dump(self.data, write_file, indent=4)
 
     def __del__(self):
-        pass
+        with open(str(self.path / json_filenames[0]), 'w', encoding='utf-8') as write_file:
+            json.dump(self.data, write_file, indent=4)

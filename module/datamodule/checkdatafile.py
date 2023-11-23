@@ -40,14 +40,15 @@ def get_pathtype(path: Path, filename: str):
     print(f"{name} in check {filename}")
 
 
-class CheckData(JsonWrite, CsvWrite):
+class CheckData:
     """
     Class that examines the data on the server.
     """
     def __init__(self, guild):
         self.path = Path(Path.cwd() / "database" / f"{guild.id}_{guild.name}")
         self.check_guild_folder()
-        self.check_file()
+        self.check_jsonfile()
+        self.check_csvfile()
 
     def check_guild_folder(self):
         """
@@ -67,9 +68,6 @@ class CheckData(JsonWrite, CsvWrite):
                     json.dump([], outfile, indent=4)
 
     def check_csvfile(self):
-        """
-        A function that checks whether a csv file exists or not.
-        """
         for csvfile in csv_filenames:
             path = Path(self.path / csvfile)
             if not Path(path / csvfile).is_file():
@@ -78,12 +76,5 @@ class CheckData(JsonWrite, CsvWrite):
                     dataframe.to_csv(str(path), encoding='utf-8', index=True)
                 except Exception as e:
                     write_error_log(e)
-                else:
-                    get_pathtype(path, csvfile)
-
-    def check_file(self):
-        """
-        :return:
-        """
-        self.check_csvfile()
-        self.check_jsonfile()
+                # else:
+                #     get_pathtype(path, csvfile)
