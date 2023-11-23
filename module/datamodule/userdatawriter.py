@@ -53,7 +53,7 @@ class GuildDataWriter(DataWriter):
         self.path = Path(Path.cwd() / 'database' / f'{guild.id}_{guild.name}')
         self.__member = guild.members
         try:
-            with open(str(self.path / json_filenames[0]), 'r', encoding='ansi') as read_file:
+            with open(str(self.path / json_filenames[0]), 'r', encoding='utf-8') as read_file:
                 self.data: list = json.load(read_file)
         except Exception as e:
             print(e)
