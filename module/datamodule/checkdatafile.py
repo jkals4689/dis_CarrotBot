@@ -1,5 +1,4 @@
 from pathlib import Path, WindowsPath, PosixPath
-from module.datamodule.datawriter import DataWriter
 from module.ErrorModule import write_error_log
 
 import json
@@ -51,16 +50,9 @@ class CheckData:
         self.check_csvfile()
 
     def check_guild_folder(self):
-        """
-        A function that determines whether a folder that stores data on the server exists.
-        :return:
-        """
         self.path.mkdir(parents=True, exist_ok=True)
 
     def check_jsonfile(self):
-        """
-        A function that checks whether a json file exists or not.
-        """
         for jsonfile in json_filenames:
             path = Path(self.path / jsonfile)
             if not path.is_file():

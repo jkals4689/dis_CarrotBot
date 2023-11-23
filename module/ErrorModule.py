@@ -12,8 +12,8 @@ class DataInformationError(Exception):
 def write_error_log(e: Exception):
     print("An unexpected error occurred:", e)
     time = datetime.now()
-    path = Path(Path.cwd()/'log.txt')
+    path = Path(Path.cwd() / 'log.txt')
     file = open(path, encoding='utf-8')
-    file.write(f'{time.strftime(" % Y. % m. % d % H: % M: %S")} -> Error: {e}')
+    file.write(f'{time.strftime("%Y.%m.%d %H:%M:%S")} -> Error: {e}')
     file.close()
     sys.exit()
