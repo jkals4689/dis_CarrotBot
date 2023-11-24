@@ -20,7 +20,7 @@ class MessageLogging(commands.Cog):
         with open(str(path / "message.txt"), 'a', encoding='utf-8') as logging_file:
             if not message.author.bot:
                 logging_file.write(
-                    f"[ {date} ] [ {time} ] [ {message.guild.name} ] : [ {message.channel.name} ] << {message.content}\n")
+                    f"[ {date} ] [ {time} ] : [ {message.guild.name} ] [ {message.channel.name} ] : [ {message.author.nick} ] << {message.content}\n")
 
 
 def setup(bot: commands.Bot):
