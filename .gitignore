@@ -5,5 +5,5 @@ test/*
 module/__pycache__
 module/cog_Event/__pycache__
 database/*
-!database/exDB
+!database/exDB(guild_id)
 *.pyc

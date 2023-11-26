@@ -68,11 +68,10 @@ class OnGuildUpdates:
         self.bot = bot
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.INFO)
+        logging.basicConfig(format='[ %(asctime)s ] [ %(levelname)s ] : %(message)s', datefmt="%d/%m/%Y %H:%M:%D")
 
     @commands.Cog.listener()
     async def on_guild_update(self, before, after):
-        logging.basicConfig(format='[ %(asctime)s ] [ %(levelname)s ] : %(message)s', datefmt="%d/%m/%Y %H:%M:%D")
-
         path = Path(Path.cwd() / "database" / f"{before.id}_{before.name}")
         replace_guild_folder = f"{after.id}_{after.name}"
         path.rename(path.parent / replace_guild_folder)
@@ -88,6 +87,7 @@ class OnGuildUpdates:
             replace_file_name = f"{after.id}_{after.name}_chat.txt"
             path.rename(path.parent / replace_file_name)
 
+            self.logger.info(f"[ {before.name} ] [ Channel Update ] : {before.name} => {after.name}")
             _Message_print("update", before=before, after=after).print_channel_update()
 
 def setup(bot: commands.Bot):
