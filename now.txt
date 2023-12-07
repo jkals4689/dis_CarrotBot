@@ -5,3 +5,14 @@
 -> 파일이 전부 존재 하면 pass | 하나라도 없으면 파일 생성
 3. 이후 join_left.csv부터 테스트
 4. 끝
+
+
+[ date time ] [ join/left ] : [ name -> mamber.name ] : [ id -> member.id ]
+[ date time ] [ update ] : [ before -> (role,nickname)] : [ after -> (role,nickname)]
+[ date time ] [ command ] : [ member.name - member.id ] : [ command ] -> channel    
+[ date time ] [ message ] : [ message ] -> [ channel ]
+                            ...
+
+userlist.csv
+id name role nickname warn 
+[ date time ] [ guild ] : [ channel ] << message

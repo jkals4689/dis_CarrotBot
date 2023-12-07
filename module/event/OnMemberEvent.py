@@ -1,4 +1,4 @@
-from module.DataWriter import CsvWriter
+from datamodule.DataWriter import CsvWriter
 import nextcord
 from nextcord.ext import commands
 
@@ -15,7 +15,7 @@ class MemberJoin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        data = CsvWriter(member.guild, 'jl')
+        data = CsvWriter(member.guild, 'join-left')
         data.add_data(member.id, member.name, 'Join')
         data.save_data()
         print_event("Join", member)
@@ -27,10 +27,19 @@ class MemberLeave(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        data = CsvWriter(member.guild, 'jl')
+        data = CsvWriter(member.guild, 'join-left')
         data.add_data(member.id, member.name, 'Leave')
         data.save_data()
         print_event("Leave", member)
+
+
+class MemberUpdate(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_member_update(self, before, after):
+        pass
 
 
 def setup(bot: commands.Bot):

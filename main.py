@@ -1,23 +1,39 @@
 import os
 import time
 import nextcord
+import module.event.guildevent as guild_event
+import module.event.loggingmessage as log_message
 
 from nextcord.ext import commands
-from module.event import member_join
+from module.datamodule.checkdatafile import CheckData
+from module.datamodule.userdatawriter import GuildDataWriter
 
 client = commands.Bot(command_prefix=".!", intents=nextcord.Intents.all())
 game = nextcord.Game("악악. 살려줘 악악.")
 
 
 def init():
-    member_join.setup(client)
-
+    """Code boxes that are executed at the start of a program.:return:"""
+    # OnMemberEvent.setup(client)
+    guild_event.setup(client)
+    log_message.setup(client)
 
 def main():
+    """
+    Program Start Function
+    :return:
+    """
+
     @client.event
     async def on_ready():
         await client.change_presence(activity=game)
         print("Carrot Bot is Starting...")
+
+        guilds = client.guilds
+        for guild in guilds:
+            CheckData(guild)
+            GuildDataWriter(guild).add_userdata()
+
         time.sleep(3)
         print("Online!")
 
