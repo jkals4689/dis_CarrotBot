@@ -46,18 +46,14 @@ class CheckData:
     def __init__(self, guild):
         self.path = Path(Path.cwd() / "database" / f"{guild.id}_{guild.name}")
         self.check_guild_folder()
-        self.check_jsonfile()
+        self.check_user_folder()
         self.check_csvfile()
 
     def check_guild_folder(self):
         self.path.mkdir(parents=True, exist_ok=True)
 
-    def check_jsonfile(self):
-        for jsonfile in json_filenames:
-            path = Path(self.path / jsonfile)
-            if not path.is_file():
-                with open(str(path), 'w', encoding='utf-8') as outfile:
-                    json.dump([], outfile, indent=4)
+    def check_user_folder(self):
+        self.path.mkdir(parents=True, exist_ok=True)
 
     def check_csvfile(self):
         for csvfile in csv_filenames:

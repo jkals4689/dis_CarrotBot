@@ -5,7 +5,7 @@ import shutil
 
 from nextcord.ext import commands
 from module.datamodule.checkdatafile import CheckData
-from module.datamodule.userdatawriter import GuildDataWriter
+from module.datamodule.userdatawriter import GuildInUsersDataWriter
 from pathlib import Path
 
 
@@ -51,7 +51,7 @@ class OnGuildEvents(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild: nextcord.Guild):
         CheckData(guild)
-        GuildDataWriter(guild).add_userdata()
+        GuildInUsersDataWriter(guild).add_userdata()
 
         _Message_print("join", guild=guild).print_join()
 
@@ -89,6 +89,7 @@ class OnGuildUpdates:
 
             self.logger.info(f"[ {before.name} ] [ Channel Update ] : {before.name} => {after.name}")
             _Message_print("update", before=before, after=after).print_channel_update()
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(OnGuildEvents(bot))
